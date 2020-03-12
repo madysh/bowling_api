@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_223817) do
+ActiveRecord::Schema.define(version: 2020_03_12_224542) do
 
   create_table "frames", force: :cascade do |t|
     t.integer "game_id"
-    t.integer "rank", default: 0
+    t.integer "rank", limit: 1, default: 0
     t.boolean "completed", default: false
-    t.integer "score", default: 0
+    t.integer "score", limit: 1, default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_frames_on_game_id"
