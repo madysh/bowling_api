@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_221142) do
+ActiveRecord::Schema.define(version: 2020_03_12_223817) do
 
   create_table "frames", force: :cascade do |t|
     t.integer "game_id"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 2020_03_12_221142) do
     t.boolean "completed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "shots", force: :cascade do |t|
+    t.integer "frame_id"
+    t.integer "pins", limit: 1, default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["frame_id"], name: "index_shots_on_frame_id"
   end
 
 end
