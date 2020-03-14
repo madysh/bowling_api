@@ -92,7 +92,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe "#as_json" do
-    let(:game) { build(:game) }
+    let(:game) { build(:game, id: rand(1..100)) }
     let(:frames) { create_list(:frame, rand(1..Game::MAX_FRAMES), :with_shots, game: game) }
 
     subject { game.as_json }
