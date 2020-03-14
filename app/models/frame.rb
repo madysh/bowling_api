@@ -30,4 +30,10 @@ class Frame < ApplicationRecord
   def final_frame_of_the_game?
     (game.frames.last == self) && (game.frames.count == Game::MAX_FRAMES)
   end
+
+  def as_json(*)
+    super
+      .slice(*%w[rank score completed])
+      .merge("shots" => shots.order(:id).map(&:as_json))
+  end
 end

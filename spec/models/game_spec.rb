@@ -5,7 +5,7 @@ RSpec.describe Game, type: :model do
 
   it { should have_many(:frames) }
 
-  it { should validate_numericality_of(:score).is_less_than_or_equal_to(300) }
+  it { should validate_numericality_of(:score).is_less_than_or_equal_to(Game::MAX_SCORE_VALUE) }
 
   describe "#complete!" do
     subject { game.complete! }
@@ -66,7 +66,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe "#add_to_score!" do
-    let(:pins) { rand(0..10) }
+    let(:pins) { rand(0...Game::MAX_SCORE_VALUE - game.score) }
 
     subject { game.add_to_score!(pins) }
 
@@ -88,6 +88,33 @@ RSpec.describe Game, type: :model do
       it "adds passed value to score" do
         expect { subject }.to change { game.score }.by(pins)
       end
+    end
+  end
+
+  describe "#as_json" do
+    let(:game) { build(:game) }
+    let(:frames) { create_list(:frame, rand(1..Game::MAX_FRAMES), :with_shots, game: game) }
+
+    subject { game.as_json }
+
+    before do
+      game.frames << frames
+    end
+
+    it "returns expected hash" do
+      is_expected.to match(
+        "id" => game.id,
+        "score" => game.score,
+        "completed" => game.completed,
+        "frames" => frames.map do |f|
+          {
+            "rank" => f.rank,
+            "score" => f.score,
+            "completed" => f.completed,
+            "shots" => f.shots.map { |s| { "pins" => s.pins } }
+          }
+        end
+      )
     end
   end
 end

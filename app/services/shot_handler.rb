@@ -14,6 +14,7 @@ class ShotHandler
     create_shot(frame)
 
     complete_game if game_over?
+    game
   end
 
   private
@@ -25,13 +26,13 @@ class ShotHandler
   end
 
   def init_variables(pins)
-    @pins = pins
+    @pins = pins.to_i
     @previous_frame = game.reload.frames.last
   end
 
   def validate_passed_params
     raise GameIsOverError if game.completed?
-    raise ArgumentError if (0..Shot::MAX_PINS).exclude?(pins)
+    raise ArgumentError.new("wrong number of pins") if (0..Shot::MAX_PINS).exclude?(pins)
   end
 
   def create_or_update_frames
@@ -94,8 +95,7 @@ class ShotHandler
   end
 
   def game_over?
-    return false if previous_frame.nil?
-    return false unless previous_frame.final_frame_of_the_game?
+    return false unless previous_frame&.final_frame_of_the_game?
     return true if previous_frame.completed?
 
     previous_frame.shots.count == Frame::MAX_AVAILABLE_SHOTS_COUNT

@@ -245,4 +245,24 @@ RSpec.describe Frame, type: :model do
       it { is_expected.to be(false) }
     end
   end
+
+  describe "#as_json" do
+    let(:frame) { build(:frame) }
+    let(:shots) { create_list(:shot, 2, frame: frame) }
+
+    subject { frame.as_json }
+
+    before do
+      frame.shots << shots
+    end
+
+    it "returns expected hash" do
+      is_expected.to match(
+        "rank" => frame.rank,
+        "score" => frame.score,
+        "completed" => frame.completed,
+        "shots" => shots.map { |s| { "pins" => s.pins } }
+      )
+    end
+  end
 end
