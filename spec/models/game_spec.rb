@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
   it { should have_many(:frames) }
 
+  it { should validate_numericality_of(:score).is_less_than_or_equal_to(300) }
+
   describe "#complete!" do
     let(:game) { build(:game) }
 
