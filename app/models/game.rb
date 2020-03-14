@@ -8,4 +8,9 @@ class Game < ApplicationRecord
   def complete!
     update(completed: true)
   end
+
+  def add_to_score!(pins)
+    self.score += pins
+    self.save!
+  end
 end
