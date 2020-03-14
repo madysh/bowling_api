@@ -17,5 +17,11 @@ FactoryBot.define do
     trait :spare do
       rank { :spare }
     end
+
+    trait :with_shots do
+      after(:create) do |frame|
+        create(:shot, frame: frame)
+      end
+    end
   end
 end
