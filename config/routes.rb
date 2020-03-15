@@ -6,4 +6,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :games, only: %i[index new create]
+
+  root to: "games#index"
 end
