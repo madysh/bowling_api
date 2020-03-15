@@ -24,3 +24,10 @@ Imagine that this API will be used by a bowling house. On the screen the user st
 * If a strike is thrown in the tenth frame, then the player may throw two more balls to complete the score of the strike.
 * Likewise, if a spare is thrown in the tenth frame, the player may throw one more ball to complete the score of the spare.
 * Therefore, the tenth frame may have three balls instead of two.
+
+
+## API requests
+
+* POST /api/v1/games - create new game
+* GET  /api/v1/games/:id - Output game's score
+* POST /api/v1/games/:game_id/shots - handle a new shot
