@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_03_14_003607) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "frames", force: :cascade do |t|
     t.integer "game_id"
-    t.integer "rank", limit: 1, default: 0
+    t.integer "rank", limit: 2, default: 0
     t.boolean "completed", default: false
-    t.integer "score", limit: 1, default: 0
+    t.integer "score", limit: 2, default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_frames_on_game_id"
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 2020_03_14_003607) do
 
   create_table "shots", force: :cascade do |t|
     t.integer "frame_id"
-    t.integer "pins", limit: 1, default: 0
+    t.integer "pins", limit: 2, default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["frame_id"], name: "index_shots_on_frame_id"
