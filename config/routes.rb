@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :games, only: %i[index new create]
+  resources :games, only: %i[index new create] do
+    resources :shots, only: :create
+  end
 
   root to: "games#index"
 end
