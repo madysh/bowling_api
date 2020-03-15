@@ -1,0 +1,4 @@
+<% if @api_response[:error].nil? %>
+  $("#scoreboard").html("<%= escape_javascript(render('/components/frames', frames: @api_response[:frames])) %>");
+  $(".total_score").html("<%= escape_javascript(@api_response[:score]) %>");
+<% end %>

@@ -10,5 +10,9 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
+    @game_id = api_agent.new_game
+    @max_available_pins = 10
+
+    render :new
   end
 end

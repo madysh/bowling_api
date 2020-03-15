@@ -1,0 +1,21 @@
+%h2 Frames
+
+#frames
+  %table
+    %thead
+      %tr
+        %td shot\frame
+        - Game::MAX_FRAMES.times do |i|
+          %td= i + 1
+
+    %tbody
+      - Frame::MAX_AVAILABLE_SHOTS_COUNT.times do |shot_item|
+        %tr
+          %td= shot_item
+          - Game::MAX_FRAMES.times do |i|
+            %td= frames.dig(i, "shots", shot_item, "pins")
+
+      %tr
+        %td score
+        - Game::MAX_FRAMES.times do |i|
+          %td= frames.dig(i, "score")

@@ -1,0 +1,10 @@
+#scoreboard
+ = render "/components/frames", frames: []
+
+%strong Total score:
+%span.total_score= 0
+
+#pins-controller
+ = render "/components/pins"
+
+= render "new_game_link"
