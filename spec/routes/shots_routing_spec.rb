@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Shots routing", type: :routing do
   describe "POST create" do
-    let(:game_id) { rand(1..100) }
+    let(:game_id) { rand(1..100).to_s }
 
     it do
       expect(post: "/games/#{game_id}/shots").to route_to(
