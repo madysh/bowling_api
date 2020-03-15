@@ -1,9 +1,21 @@
+$(".error").html("<%= escape_javascript(@api_response[:error]) %>");
+
 <% if @api_response[:error].nil? %>
-  $("#scoreboard").html("<%= escape_javascript(render('/components/frames', frames: @api_response[:frames])) %>");
+  $(".scoreboard").html("<%= escape_javascript(render('/components/frames', frames: @api_response[:frames])) %>");
   $(".total_score").html("<%= escape_javascript(@api_response[:score]) %>");
 
-  $(".pins>a").removeClass("disabled");
-  $(".pins>a").filter(function(){ return (parseInt($(this).data("value")) > <%= @api_response[:available_pins]%>); }).addClass("disabled");
+  <% if @api_response[:completed] %>
+    $(".pins-controller").hide();
+  <% else %>
+    $(".pins>a").removeClass("disabled");
+    $(".pins>a").filter(function(){
+      return (parseInt($(this).data("value")) > <%= @api_response[:available_pins]%>);
+    }).addClass("disabled");
+  <% end %>
 <% end %>
 
-$("#errors").html("<%= escape_javascript(@api_response[:error]) %>");
+<% if @api_response[:completed] %>
+  $(".message").html("Game over!");
+<% else %>
+  $(".message").html();
+<% end %>

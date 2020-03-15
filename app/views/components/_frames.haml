@@ -1,21 +1,23 @@
 %h2 Frames
 
-#frames
-  %table
+.frames
+  %table.table.table-bordered
     %thead
       %tr
-        %td shot\frame
+        %td{ scope: "col" } shot\frame
         - Game::MAX_FRAMES.times do |i|
-          %td= i + 1
+          %td{ scope: "col" }= i + 1
 
     %tbody
       - Frame::MAX_AVAILABLE_SHOTS_COUNT.times do |shot_item|
         %tr
-          %td= (shot_item == Frame::MAX_AVAILABLE_SHOTS_COUNT - 1) ? "bonus" : shot_item + 1
+          %td{scope: "row"}
+            = (shot_item == Frame::MAX_AVAILABLE_SHOTS_COUNT - 1) ? "bonus" : shot_item + 1
+
           - Game::MAX_FRAMES.times do |i|
             %td= frames.dig(i, "shots", shot_item, "pins")
 
       %tr
-        %td score
+        %td{scope: "row"} score
         - Game::MAX_FRAMES.times do |i|
           %td= frames.dig(i, "score")

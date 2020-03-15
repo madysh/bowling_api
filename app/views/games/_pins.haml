@@ -2,4 +2,4 @@
 
 .pins
   - (0..Shot::MAX_PINS).each do |i|
-    = link_to i, game_shots_path(@game_id, pins: i), { "data-value": i, method: :post, remote: true }
+    = link_to i, game_shots_path(@game_id, pins: i), { "data-value": i, method: :post, remote: true, class: "btn btn-secondary" }

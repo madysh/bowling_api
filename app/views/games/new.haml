@@ -1,12 +1,18 @@
-#scoreboard
- = render "/components/frames", frames: []
+.container.position-relative.text-center
+  .row
+    .scoreboard
+      = render "/components/frames", frames: []
+  .row
+    %strong Total score:
+    %span.total_score= 0
 
-%strong Total score:
-%span.total_score= 0
+  .row
+    .message.alert-success
+    .error.alert-danger
 
-#pins-controller
- = render "pins"
-
-= render "new_game_link"
-
-#errors
+  .row
+    .pins-controller
+      = render "pins"
+  %hr
+  .row
+    = render "new_game_link"
