@@ -1,4 +1,4 @@
-class Api::V1::ShotsController < ApplicationController
+class Api::V1::ShotsController < Api::V1::ApiController
 
   # POST /api/v1/games/:game_id/shots
   def create
