@@ -1,6 +1,9 @@
 <% if @api_response[:error].nil? %>
   $("#scoreboard").html("<%= escape_javascript(render('/components/frames', frames: @api_response[:frames])) %>");
   $(".total_score").html("<%= escape_javascript(@api_response[:score]) %>");
+
+  $(".pins>a").removeClass("disabled");
+  $(".pins>a").filter(function(){ return (parseInt($(this).data("value")) > <%= @api_response[:available_pins]%>); }).addClass("disabled");
 <% end %>
 
 $("#errors").html("<%= escape_javascript(@api_response[:error]) %>");

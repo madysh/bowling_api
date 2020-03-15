@@ -1,4 +1,5 @@
 %h2 Next shot
 
-- (Shot::MAX_PINS + 1).times do |i|
-  = link_to i, game_shots_path(@game_id, pins: i), { "data-value": i, method: :post, remote: true }
+.pins
+  - (0..Shot::MAX_PINS).each do |i|
+    = link_to i, game_shots_path(@game_id, pins: i), { "data-value": i, method: :post, remote: true }
