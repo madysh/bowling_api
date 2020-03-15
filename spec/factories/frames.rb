@@ -8,6 +8,9 @@ FactoryBot.define do
     trait :completed do
       completed { true }
     end
+    trait :not_completed do
+      completed { false }
+    end
     trait :normal do
       rank { :normal }
     end
@@ -20,7 +23,7 @@ FactoryBot.define do
 
     trait :with_shots do
       after(:create) do |frame|
-        create(:shot, frame: frame)
+        create(:shot, frame: frame, pins: frame.score)
       end
     end
   end
