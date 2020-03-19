@@ -36,6 +36,8 @@ class ShotHandler
   end
 
   def create_or_update_frames
+    check_strike_frames
+
     case
       when previous_frame.nil? || previous_frame.completed? then try_to_create_new_frame
       when previous_frame.normal? then update_normal_frame
@@ -78,16 +80,20 @@ class ShotHandler
   end
 
   def update_strike_frame
+    previous_frame.add_to_score!(pins)
+    game.add_to_score!(pins)
+    try_to_create_new_frame
+  end
+
+  def check_strike_frames
+    return unless previous_frame
+
     one_frame_before = game.frames.where.not(id: previous_frame.id).last
 
     if one_frame_before && !one_frame_before.completed? && one_frame_before.strike?
       one_frame_before.complete_and_add_to_score!(pins)
       game.add_to_score!(pins)
     end
-
-    previous_frame.add_to_score!(pins)
-    game.add_to_score!(pins)
-    try_to_create_new_frame
   end
 
   def create_shot(frame)
