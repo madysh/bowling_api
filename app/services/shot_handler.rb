@@ -36,7 +36,7 @@ class ShotHandler
   end
 
   def create_or_update_frames
-    check_strike_frames
+    handle_strike_frames
 
     case
       when previous_frame.nil? || previous_frame.completed? then try_to_create_new_frame
@@ -85,7 +85,7 @@ class ShotHandler
     try_to_create_new_frame
   end
 
-  def check_strike_frames
+  def handle_strike_frames
     return unless previous_frame
 
     one_frame_before = game.frames.where.not(id: previous_frame.id).last
